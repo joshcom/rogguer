@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'curses'
 gem 'rake', '~> 10.2.2'
 
 group :test, :development do

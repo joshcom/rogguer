@@ -1,5 +1,8 @@
-require "rogguer/version"
+require_relative "rogguer/version"
+require_relative 'rogguer/game'
 
 module Rogguer
-  # Your code goes here...
+  def self.play
+    Game.new.play
+  end
 end
