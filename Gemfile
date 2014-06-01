@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in rogguer.gemspec
-gemspec
+gem 'rake', '~> 10.2.2'
+
+group :test, :development do
+  gem 'minitest', '~> 5.3.4'
+end
