@@ -9,7 +9,11 @@ module Rogguer
         raise NotImplementedError
       end
 
-      def draw
+      def draw(map)
+        raise NotImplementedError
+      end
+
+      def last_command
         raise NotImplementedError
       end
     end
