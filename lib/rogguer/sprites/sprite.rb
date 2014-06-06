@@ -14,12 +14,20 @@ module Rogguer
         @tile = tile
       end
 
+      def passable?
+        true
+      end
+
       def hero?
         false
       end
 
       def enemy?
         false
+      end
+
+      def passable?
+        !enemy? && !hero?
       end
 
       def sitting_on_tile=(tile)

@@ -1,4 +1,6 @@
 module Rogguer
+  require_relative 'sprites'
+
   class Map
     MAP_LOCATION = "../../../config/maps/"
     MAP_SUFFIX   = ".map"
@@ -18,22 +20,31 @@ module Rogguer
     end
 
     def allowable_intent?(piece)
-      # Check for map boundaries.
-      if !@structure[piece.intent.y] ||
-            !@structure[piece.intent.y][piece.intent.x]
-        return false
-      end
+      sprite = sprite_at_intent(piece)
+      return false if sprite.nil?
 
 
-      true
+      sprite.passable?
     end
 
     def move_to_intent(piece)
       return unless piece.intends_to_move?
 
       @structure[piece.y][piece.x] = piece.sitting_on_tile
-      piece.sitting_on_tile = @structure[piece.intent.y][piece.intent.x]
+      piece.sitting_on_tile = tile_at(piece.intent.to_coords)
       @structure[piece.intent.y][piece.intent.x] = piece.tile
+    end
+
+    def sprite_at_intent(piece)
+      map_tile = nil
+
+      begin
+        map_tile = tile_at(piece.intent.to_coords)
+      rescue IndexError
+        return nil
+      end
+
+      Rogguer::Sprites.build_by_tile(map_tile)
     end
 
     private
@@ -41,11 +52,19 @@ module Rogguer
     def build_structure!
       @structure = [[]] # This may be best extracted.
       @file.chars.each do |character|
-        @structure.last << character
-        @structure << [] if newline?(character)
+        if newline?(character)
+          @structure << [] 
+          next
+        else
+          @structure.last << character
+        end
       end
 
       @structure.delete_at(@structure.size - 1 ) while @structure.last.empty?
+    end
+
+    def tile_at(coords)
+      @structure.fetch(coords.last).fetch(coords.first)
     end
 
     def newline?(character)

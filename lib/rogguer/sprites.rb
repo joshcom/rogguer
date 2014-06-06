@@ -11,7 +11,11 @@ module Rogguer
 
     def self.build(sprite)
       tile = self.configuration[sprite.to_s]
-      Rogguer::Sprites.const_get(classify(sprite).to_sym).new(tile)
+      begin
+        Rogguer::Sprites.const_get(classify(sprite).to_sym).new(tile)
+      rescue NameError
+        Rogguer::Sprites::Sprite.new(tile)
+      end
     end
 
     def self.build_by_tile(tile)
