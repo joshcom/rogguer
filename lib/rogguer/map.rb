@@ -1,6 +1,6 @@
 module Rogguer
   class Map
-    MAP_LOCATION = "../maps/"
+    MAP_LOCATION = "../../../config/maps/"
     MAP_SUFFIX   = ".map"
 
     attr_reader :structure
@@ -13,15 +13,27 @@ module Rogguer
     end
 
     def place(piece)
-      piece.sitting_on_code = @structure[piece.y][piece.x]
-      @structure[piece.y][piece.x] = piece.code
+      piece.sitting_on_tile = @structure[piece.y][piece.x]
+      @structure[piece.y][piece.x] = piece.tile
+    end
+
+    def allowable_intent?(piece)
+      # Check for map boundaries.
+      if !@structure[piece.intent.y] ||
+            !@structure[piece.intent.y][piece.intent.x]
+        return false
+      end
+
+
+      true
     end
 
     def move_to_intent(piece)
       return unless piece.intends_to_move?
 
-      @structure[piece.y][piece.x] = piece.sitting_on_code
-      @structure[piece.intent.y][piece.intent.x] = piece.code
+      @structure[piece.y][piece.x] = piece.sitting_on_tile
+      piece.sitting_on_tile = @structure[piece.intent.y][piece.intent.x]
+      @structure[piece.intent.y][piece.intent.x] = piece.tile
     end
 
     private

@@ -4,21 +4,14 @@ module Rogguer
       require 'forwardable' 
       extend Forwardable
 
-      attr_reader :coords, :intent
+      attr_reader :coords, :intent, :tile
       def_delegators :@coords, :x, :y, :to_coords,
         :coords=
 
-      def self.code
-        raise NotImplementedError
-      end
-
-      def initialize
+      def initialize(tile)
         @coords = Rogguer::Sprites::Coordinates.new
         @intent = nil
-      end
-
-      def code
-        self.class.code
+        @tile = tile
       end
 
       def hero?
@@ -29,20 +22,12 @@ module Rogguer
         false
       end
 
-      def to_str
-        code
-      end
-
-      def to_s
-        to_str
-      end
-
-      def sitting_on_code=(code)
-        @sitting_on_code = code
+      def sitting_on_tile=(tile)
+        @sitting_on_tile = tile
       end
       
-      def sitting_on_code
-        @sitting_on_code
+      def sitting_on_tile
+        @sitting_on_tile
       end
 
       def intent=(new_coords)

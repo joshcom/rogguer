@@ -13,8 +13,14 @@ module Rogguer
 
     def move_hero(direction)
       @hero.intends_to_move(direction)
-      @map.move_to_intent(@hero)
-      @hero.commit_move!
+
+      if @map.allowable_intent?(@hero)
+        @map.move_to_intent(@hero)
+        @hero.commit_move!
+        true
+      else
+        false
+      end
     end
 
     private

@@ -2,10 +2,6 @@ module Rogguer
   require_relative 'hero'
 
   module Sprites
-    class DeadHero < Hero
-      def self.code
-        "%"
-      end
-    end
+    class DeadHero < Hero; end
   end
 end
