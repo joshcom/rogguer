@@ -2,6 +2,8 @@ module Rogguer
   module Sprites
     class Sprite
       require 'forwardable' 
+      require_relative 'coordinates'
+
       extend Forwardable
 
       attr_reader :coords, :intent, :tile
