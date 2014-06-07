@@ -11,6 +11,10 @@ module Rogguer
 
     def self.build(sprite_sym)
       tile = self.configuration[sprite_sym.to_s]
+      if tile.nil?
+        raise NameError, "#{sprite_sym.inspect} is an unsupported sprite"
+      end
+
       begin
         Rogguer::Sprites.const_get(classify(sprite_sym).to_sym).new(tile)
       rescue NameError

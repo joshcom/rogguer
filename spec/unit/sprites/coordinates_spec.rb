@@ -41,7 +41,7 @@ describe Rogguer::Sprites::Coordinates do
 
   describe "instantiation" do
     it "should start at 0,0 by default" do
-      coordinates.to_coords.must_equal [0, 0]
+      coordinates.to_a.must_equal [0, 0]
     end
 
     it "should be initializable from points" do
@@ -78,32 +78,32 @@ describe Rogguer::Sprites::Coordinates do
 
     it "should move left" do
       coordinates.move(:left)
-      coordinates.to_coords.must_equal [0, 1]
+      coordinates.to_a.must_equal [0, 1]
     end
 
     it "should move right" do
       coordinates.move(:right)
-      coordinates.to_coords.must_equal [2, 1]
+      coordinates.to_a.must_equal [2, 1]
     end
 
     it "should move up" do
       coordinates.move(:up)
-      coordinates.to_coords.must_equal [1, 0]
+      coordinates.to_a.must_equal [1, 0]
     end
 
     it "should move down" do
       coordinates.move(:down)
-      coordinates.to_coords.must_equal [1, 2]
+      coordinates.to_a.must_equal [1, 2]
     end
 
     it "should have no movement on non-recognized type" do
       coordinates.move(:diagonal)
-      coordinates.to_coords.must_equal [1, 1]
+      coordinates.to_a.must_equal [1, 1]
     end
 
     it "should have an overridable magnitude" do
       coordinates.move(:down, 4)
-      coordinates.to_coords.must_equal [1, 5]
+      coordinates.to_a.must_equal [1, 5]
     end
   end
 

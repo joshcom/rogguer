@@ -13,7 +13,7 @@ describe Rogguer::Sprites::Sprite do
   describe "default state" do
 
     it "should start at 0,0" do
-      sprite.to_coords.must_equal [0, 0]
+      sprite.to_a.must_equal [0, 0]
     end
 
     it "should have no intent" do
@@ -67,18 +67,18 @@ describe Rogguer::Sprites::Sprite do
 
     it "will intend to move to a coordinate" do
       sprite.intent.must_be_instance_of Rogguer::Sprites::Coordinates
-      sprite.intent.to_coords.must_equal coordinates
+      sprite.intent.to_a.must_equal coordinates
     end
 
     it "will update the x, y coords on commit" do
       sprite.commit_move!
-      sprite.to_coords.must_equal coordinates
+      sprite.to_a.must_equal coordinates
       sprite.intent.must_be_nil
     end
 
     it "can intend to move in a direction" do
       sprite.intends_to_move(:right)
-      sprite.intent.to_coords.must_equal [1,0]
+      sprite.intent.to_a.must_equal [1,0]
     end
   end
 

@@ -30,7 +30,7 @@ module Rogguer
         @x == other_coords.x && @y == other_coords.y
       end
 
-      def to_coords
+      def to_a
         [x, y]
       end
 

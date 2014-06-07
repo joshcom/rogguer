@@ -8,7 +8,7 @@ module Rogguer
       include Rogguer::Sprites::Conversions
 
       attr_reader :coords, :intent, :tile
-      def_delegators :@coords, :x, :y, :to_coords
+      def_delegators :@coords, :x, :y, :to_a
 
       def initialize(tile)
         @coords = Rogguer::Sprites::Coordinates.new
