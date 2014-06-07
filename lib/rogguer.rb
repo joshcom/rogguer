@@ -1,4 +1,3 @@
-require_relative "rogguer/version"
 require_relative 'rogguer/game'
 
 module Rogguer
