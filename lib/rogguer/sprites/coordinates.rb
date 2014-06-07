@@ -1,15 +1,33 @@
 module Rogguer
   module Sprites
+
+    module Conversions
+      module_function
+
+      def Coordinates(*args)
+        case args.first
+        when Array
+          c = args.first
+          Rogguer::Sprites::Coordinates.new(c.first, c.fetch(1, 0))
+        when Coordinates
+          args.first.dup
+        else
+          raise TypeError, 
+            "Cannot convert #{args.inspect} to Coordinates"
+        end
+      end
+    end
+
     class Coordinates
       attr_accessor :x, :y
-
-      def self.build_from_coords(coords)
-        self.new(coords.x, coords.y)
-      end
 
       def initialize(x = 0, y = 0)
         @x = Integer(x) 
         @y = Integer(y)
+      end
+
+      def ==(other_coords)
+        @x == other_coords.x && @y == other_coords.y
       end
 
       def to_coords

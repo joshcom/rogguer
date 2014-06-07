@@ -18,8 +18,8 @@ describe Rogguer::Sprites::Water do
     sprite.hero?().must_equal false
   end
 
-  it "should not be passable" do
-    sprite.passable?().must_equal false
+  it "should be passable" do
+    sprite.passable?().must_equal true
   end
 end
 

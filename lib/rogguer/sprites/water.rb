@@ -6,6 +6,10 @@ module Rogguer
       def enemy?
         true
       end
+
+      def passable?
+        true
+      end
     end
   end
 end

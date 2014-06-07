@@ -16,6 +16,10 @@ module Rogguer
 
     def place(piece)
       piece.sitting_on_tile = @structure[piece.y][piece.x]
+      update(piece)
+    end
+
+    def update(piece)
       @structure[piece.y][piece.x] = piece.tile
     end
 

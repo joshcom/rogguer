@@ -1,9 +1,42 @@
 require 'minitest_helper'
 require 'rogguer/sprites/coordinates'
 
+include Rogguer::Sprites::Conversions
+
 describe Rogguer::Sprites::Coordinates do
+
   let(:coordinates) do 
     Rogguer::Sprites::Coordinates.new
+  end
+
+  describe "conversion function" do
+    it "should convert an array" do
+      converted_array = Coordinates([1,2])
+      converted_array.must_be_instance_of Rogguer::Sprites::Coordinates
+      converted_array.x.must_equal 1
+      converted_array.y.must_equal 2
+    end
+
+    it "should default y=0 with a single element array" do
+      converted_array = Coordinates([1])
+      converted_array.must_be_instance_of Rogguer::Sprites::Coordinates
+      converted_array.x.must_equal 1
+      converted_array.y.must_equal 0
+    end
+
+    it "should convert from existing coords" do
+      coordinates.coords = [4, 5]
+      converted_coords = Coordinates(coordinates)
+      converted_coords.must_be_instance_of Rogguer::Sprites::Coordinates
+      converted_coords.wont_be_same_as coordinates
+      converted_coords.must_equal coordinates
+    end
+
+    it "should otherwise raise a type error" do
+      proc {
+        Coordinates("hi there")
+      }.must_raise TypeError
+    end
   end
 
   describe "instantiation" do
@@ -15,14 +48,6 @@ describe Rogguer::Sprites::Coordinates do
       new_coords = Rogguer::Sprites::Coordinates.new(2,3)
       new_coords.x.must_equal 2
       new_coords.y.must_equal 3
-    end
-
-    it "should be buildable from another coordinates instance" do
-      coordinates.x = 4
-      coordinates.y = 5
-
-      new_coords = Rogguer::Sprites::Coordinates.build_from_coords(coordinates)
-      new_coords.to_coords.must_equal [4, 5]
     end
   end
 
@@ -79,6 +104,22 @@ describe Rogguer::Sprites::Coordinates do
     it "should have an overridable magnitude" do
       coordinates.move(:down, 4)
       coordinates.to_coords.must_equal [1, 5]
+    end
+  end
+
+  describe "equality" do
+    it "should equal other coords with the same x/y vals" do
+      first_coords = Rogguer::Sprites::Coordinates.new(1,2)
+      second_coords = Rogguer::Sprites::Coordinates.new(1,2)
+
+      first_coords.must_equal second_coords
+    end
+
+    it "should not equal other coords with different x/y vals" do
+      first_coords = Rogguer::Sprites::Coordinates.new(1,2)
+      second_coords = Rogguer::Sprites::Coordinates.new(2,1)
+
+      first_coords.wont_equal second_coords
     end
   end
 

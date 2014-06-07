@@ -9,10 +9,10 @@ module Rogguer
   module Sprites
     CONFIG_LOCATION = "../../../config/tiles.yml"
 
-    def self.build(sprite)
-      tile = self.configuration[sprite.to_s]
+    def self.build(sprite_sym)
+      tile = self.configuration[sprite_sym.to_s]
       begin
-        Rogguer::Sprites.const_get(classify(sprite).to_sym).new(tile)
+        Rogguer::Sprites.const_get(classify(sprite_sym).to_sym).new(tile)
       rescue NameError
         Rogguer::Sprites::Sprite.new(tile)
       end
@@ -21,6 +21,14 @@ module Rogguer
     def self.build_by_tile(tile)
       sprite = self.configuration.invert[tile]
       self.build(sprite)
+    end
+
+    def self.build_from_sprite(sprite_sym, sprite)
+      new_sprite = self.build(sprite_sym)
+      new_sprite.coords = sprite.coords
+      new_sprite.intent = sprite.intent
+      new_sprite.sitting_on_tile = sprite.sitting_on_tile
+      new_sprite
     end
 
     private

@@ -1,13 +1,13 @@
 require 'minitest_helper'
-require 'rogguer/sprites/hero'
+require 'rogguer/sprites/dead_hero'
 
-describe Rogguer::Sprites::Hero do
+describe Rogguer::Sprites::DeadHero do
   let(:tile) do
-    "@"
+    "%"
   end
 
   let(:sprite) do 
-    Rogguer::Sprites::Hero.new(tile)
+    Rogguer::Sprites::DeadHero.new(tile)
   end
 
   it "should not be an enemy" do
@@ -22,8 +22,8 @@ describe Rogguer::Sprites::Hero do
     sprite.passable?().must_equal false
   end
 
-  it "should not be dead" do
-    sprite.dead?().must_equal false
+  it "should be dead" do
+    sprite.dead?().must_equal true
   end
 end
 

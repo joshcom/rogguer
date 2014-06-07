@@ -5,10 +5,10 @@ module Rogguer
       require_relative 'coordinates'
 
       extend Forwardable
+      include Rogguer::Sprites::Conversions
 
       attr_reader :coords, :intent, :tile
-      def_delegators :@coords, :x, :y, :to_coords,
-        :coords=
+      def_delegators :@coords, :x, :y, :to_coords
 
       def initialize(tile)
         @coords = Rogguer::Sprites::Coordinates.new
@@ -40,13 +40,16 @@ module Rogguer
         @sitting_on_tile
       end
 
+      def coords=(new_coords)
+        @coords = Coordinates(new_coords)
+      end
+
       def intent=(new_coords)
-        @intent = Rogguer::Sprites::Coordinates.new(new_coords.first,
-            new_coords.last)
+        @intent = Coordinates(new_coords)
       end
 
       def intends_to_move(direction)
-        @intent = Rogguer::Sprites::Coordinates.build_from_coords(@coords)
+        @intent = @coords.dup
         @intent.move(direction)
       end
 

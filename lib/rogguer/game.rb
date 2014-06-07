@@ -17,14 +17,6 @@ module Rogguer
         last_command = nil
 
         game_loop do 
-          # TODO
-          # * Configuration
-          # * Menu
-          # * Check to see if user wants to pause, or
-          #   quit.
-          # * Check for collisions
-          # * Move MoBs
-          # * Clear stack of input each tick
           console.draw(game_master.map)
           sleep(TICK_TIME)
           last_command = console.last_command

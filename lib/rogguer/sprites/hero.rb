@@ -6,6 +6,10 @@ module Rogguer
       def hero?
         true
       end
+
+      def dead?
+        false
+      end
     end
   end
 end
