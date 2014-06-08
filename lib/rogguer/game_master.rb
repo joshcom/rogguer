@@ -2,13 +2,19 @@ module Rogguer
   require_relative 'sprites'
 
   class GameMaster
-    attr_reader :map
+    DEFAULT_STARTING_LEVEL = 1
 
-    def initialize(map_board)
+    attr_reader :status_bar, :map
+
+    def initialize(status_bar, map_board)
+      @current_level = DEFAULT_STARTING_LEVEL
+      @status_bar = status_bar
       @map = map_board
       @hero = Rogguer::Sprites.build(:hero)
       @hero.coords = calculate_starting_coords(@map)
       @map.place(@hero)
+
+      update_status_bar
     end
 
     def move_hero(direction)
@@ -31,9 +37,15 @@ module Rogguer
       else
         @map.update(@hero)
       end
+
+      update_status_bar
     end
 
     private
+
+    def update_status_bar
+      @status_bar.update(@current_level, @hero.lives, @hero.steps)
+    end
 
     def calculate_starting_coords(map)
       [@map.structure.last.size / 2, @map.structure.size - 1]

@@ -16,6 +16,12 @@ module Rogguer
         @tile = tile
       end
 
+      def copy(from_sprite)
+        @coords = from_sprite.coords
+        @intent = from_sprite.intent
+        @sitting_on_tile = from_sprite.sitting_on_tile
+      end
+
       def passable?
         true
       end

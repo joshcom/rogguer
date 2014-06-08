@@ -29,9 +29,7 @@ module Rogguer
 
     def self.build_from_sprite(sprite_sym, sprite)
       new_sprite = self.build(sprite_sym)
-      new_sprite.coords = sprite.coords
-      new_sprite.intent = sprite.intent
-      new_sprite.sitting_on_tile = sprite.sitting_on_tile
+      new_sprite.copy(sprite)
       new_sprite
     end
 

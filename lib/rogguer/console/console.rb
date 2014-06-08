@@ -9,7 +9,7 @@ module Rogguer
         raise NotImplementedError
       end
 
-      def draw(map)
+      def draw(status_bar, map)
         raise NotImplementedError
       end
 

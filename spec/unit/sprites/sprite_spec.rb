@@ -37,6 +37,20 @@ describe Rogguer::Sprites::Sprite do
     end
   end
 
+  describe "copy" do
+    it "can copy data from another sprite" do
+      other_sprite = Rogguer::Sprites::Sprite.new(",")
+      other_sprite.coords = [5,5]
+      other_sprite.intent = [6,6]
+      other_sprite.sitting_on_tile = "o"
+
+      sprite.copy(other_sprite)
+      sprite.coords.to_a.must_equal [5,5]
+      sprite.intent.to_a.must_equal [6,6]
+      sprite.sitting_on_tile.must_equal "o"
+    end
+  end
+
   describe "the tile below the sprite" do
     it "should be nil, by default" do
       sprite.sitting_on_tile.must_be_nil

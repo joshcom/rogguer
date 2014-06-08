@@ -24,7 +24,7 @@ module Rogguer
         Curses.close_screen
       end
 
-      def draw(map)
+      def draw(status_bar, map)
         line_num   = 0
         column_num = 0
 

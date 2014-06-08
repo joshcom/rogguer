@@ -1,15 +1,17 @@
 module Rogguer
   require_relative 'map'
-  require_relative 'console/curses_console'
+  require_relative 'status_bar'
   require_relative 'game_master'
+  require_relative 'console/curses_console'
 
   class Game
     TICK_TIME = 0.20
 
     def play
       console = Rogguer::Consoles::CursesConsole.new
+      status_bar = Rogguer::StatusBar.new
       map = Rogguer::Map.new(:default)
-      game_master = Rogguer::GameMaster.new(map)
+      game_master = Rogguer::GameMaster.new(status_bar, map)
 
       begin
         console.setup
@@ -17,7 +19,7 @@ module Rogguer
         last_command = nil
 
         game_loop do 
-          console.draw(game_master.map)
+          console.draw(game_master.status_bar, game_master.map)
           sleep(TICK_TIME)
           last_command = console.last_command
           game_master.move_hero(last_command)
