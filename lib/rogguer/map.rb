@@ -14,6 +14,14 @@ module Rogguer
       build_structure!
     end
 
+    def allowable_intent?(piece)
+      sprite = sprite_at_intent(piece)
+      return false if sprite.nil?
+
+
+      sprite.passable?
+    end
+
     def place(piece)
       piece.sitting_on_tile = @structure[piece.y][piece.x]
       update(piece)
@@ -21,14 +29,6 @@ module Rogguer
 
     def update(piece)
       @structure[piece.y][piece.x] = piece.tile
-    end
-
-    def allowable_intent?(piece)
-      sprite = sprite_at_intent(piece)
-      return false if sprite.nil?
-
-
-      sprite.passable?
     end
 
     def move_to_intent(piece)
