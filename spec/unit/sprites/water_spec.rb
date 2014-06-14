@@ -21,5 +21,9 @@ describe Rogguer::Sprites::Water do
   it "should be passable" do
     sprite.passable?().must_equal true
   end
+
+  it "should not be fightable" do
+    sprite.fightable?().must_equal false
+  end
 end
 

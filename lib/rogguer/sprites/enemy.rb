@@ -1,17 +1,13 @@
 module Rogguer
-  require_relative 'enemy'
+  require_relative 'sprite'
 
   module Sprites
-    class Water < Enemy
+    class Enemy < Sprite
       def enemy?
         true
       end
 
       def fightable?
-        false
-      end
-
-      def passable?
         true
       end
     end
