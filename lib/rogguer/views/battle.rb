@@ -17,8 +17,14 @@ module Rogguer
       end
 
       def build_my_structure
+        @structure.unshift []
+        @structure.unshift "A #{enemy_name} appears!".split("")
         @structure << []
         @structure << "(R) Ribbit, (J) Jump".split("")
+      end
+
+      def enemy_name
+        @type.to_s
       end
 
     end

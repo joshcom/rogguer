@@ -24,7 +24,7 @@ module Rogguer
         Curses.close_screen
       end
 
-      def draw(status_bar, map)
+      def draw(map, status_bar=nil)
         Curses.clear
         line_num   = 0
         column_num = 0
@@ -49,6 +49,8 @@ module Rogguer
       end
 
       def draw_top_status_bar(status_bar, current_line_number, width)
+        return current_line_number if status_bar.nil?
+
         title = status_bar.title_text
         level = status_bar.level_text
         text = fill_text_with_padding(title, level, width)
@@ -56,6 +58,8 @@ module Rogguer
       end
 
       def draw_bottom_status_bar(status_bar, current_line_number, width)
+        return current_line_number if status_bar.nil?
+
         lives = status_bar.lives_text
         steps = status_bar.steps_text
         text = fill_text_with_padding(lives, steps, width)

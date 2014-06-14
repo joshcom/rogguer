@@ -18,7 +18,7 @@ module Rogguer
         last_command = nil
 
         game_loop do 
-          console.draw(game_master.status_bar, game_master.map)
+          console.draw(game_master.map, game_master.status_bar)
           sleep(TICK_TIME)
           last_command = console.last_command
           game_master.hero_action(last_command)
@@ -38,7 +38,7 @@ module Rogguer
 
     def fight_loop(game_master, console)
       battle = Rogguer::Views::Battle.new(:car)
-      console.draw(game_master.status_bar, battle)
+      console.draw(battle)
       sleep(10) 
     end
   end
