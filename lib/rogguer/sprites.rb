@@ -4,11 +4,9 @@ Dir[File.dirname(__FILE__) + '/sprites/*.rb'].each do |file|
 end
 
 module Rogguer
-  require 'yaml'
+  require_relative "configurations/yaml_configuration"
 
   module Sprites
-    CONFIG_LOCATION = "../../../config/tiles.yml"
-
     def self.build(sprite_sym)
       tile = self.configuration[sprite_sym.to_s]
       if tile.nil?
@@ -36,9 +34,8 @@ module Rogguer
     private
 
     def self.configuration
-      @configuration ||= YAML.load_file(File.expand_path(CONFIG_LOCATION, 
-                            __FILE__))
-      @configuration
+      @configuration ||= Rogguer::Configurations::YamlConfiguration.new("tiles")
+      @configuration.file
     end
 
     def self.classify(string)

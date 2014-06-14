@@ -1,6 +1,5 @@
 module Rogguer
-  require_relative 'map'
-  require_relative 'status_bar'
+  require_relative 'views'
   require_relative 'game_master'
   require_relative 'console/curses_console'
 
@@ -9,8 +8,8 @@ module Rogguer
 
     def play
       console = Rogguer::Consoles::CursesConsole.new
-      status_bar = Rogguer::StatusBar.new
-      map = Rogguer::Map.new(:default)
+      status_bar = Rogguer::Views::StatusBar.new
+      map = Rogguer::Views::Map.new(:default)
       game_master = Rogguer::GameMaster.new(status_bar, map)
 
       begin
@@ -22,7 +21,9 @@ module Rogguer
           console.draw(game_master.status_bar, game_master.map)
           sleep(TICK_TIME)
           last_command = console.last_command
-          game_master.move_hero(last_command)
+          game_master.hero_action(last_command)
+
+          fight_loop(game_master, console)
         end
       ensure
         console.teardown
@@ -33,6 +34,12 @@ module Rogguer
 
     def game_loop 
       yield while true
+    end
+
+    def fight_loop(game_master, console)
+      battle = Rogguer::Views::Battle.new(:car)
+      console.draw(game_master.status_bar, battle)
+      sleep(10) 
     end
   end
 end

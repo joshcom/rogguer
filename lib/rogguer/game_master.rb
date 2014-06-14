@@ -17,7 +17,7 @@ module Rogguer
       update_status_bar
     end
 
-    def move_hero(direction)
+    def hero_action(direction)
       return if @hero.dead?
 
       @hero.intends_to_move(direction)

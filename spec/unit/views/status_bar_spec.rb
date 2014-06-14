@@ -1,9 +1,9 @@
 require 'minitest_helper'
-require 'rogguer/status_bar'
+require 'rogguer/views/status_bar'
 
-describe Rogguer::StatusBar do
+describe Rogguer::Views::StatusBar do
   let(:status_bar) do
-    Rogguer::StatusBar.new
+    Rogguer::Views::StatusBar.new
   end
 
   describe "initialization" do

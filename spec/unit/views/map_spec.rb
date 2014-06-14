@@ -1,9 +1,9 @@
 require 'minitest_helper'
-require 'rogguer/map'
+require 'rogguer/views/map'
 
-describe Rogguer::Map do
+describe Rogguer::Views::Map do
   let(:map) do
-    Rogguer::Map.new(:default)
+    Rogguer::Views::Map.new(:default)
   end
 
   let(:piece) do

@@ -25,6 +25,7 @@ module Rogguer
       end
 
       def draw(status_bar, map)
+        Curses.clear
         line_num   = 0
         column_num = 0
 
