@@ -33,7 +33,7 @@ module Rogguer
     private
 
     def game_loop 
-      yield while true
+      loop { yield } 
     end
 
     def fight_loop(game_master, console)

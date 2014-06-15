@@ -25,5 +25,11 @@ describe Rogguer::Sprites::Enemy do
   it "should be fightable" do
     sprite.fightable?().must_equal true
   end
+
+  it "should generate a UUID" do
+    sprite.uuid.wont_be_nil
+
+    Rogguer::Sprites::Enemy.new(tile).uuid.wont_equal sprite.uuid
+  end
 end
 
