@@ -25,6 +25,7 @@ module Rogguer
 
           if game_master.fighting?
             fight_loop(game_master, console)
+            game_master.complete_fight
           end
         end
       ensure

@@ -1,4 +1,5 @@
 module Rogguer
+  require_relative 'battle_master'
   require_relative 'sprites'
 
   class GameMaster
@@ -26,17 +27,9 @@ module Rogguer
       @hero.intends_to_move(direction)
       sprite_at_intent = @map.sprite_at_intent(@hero)
 
-      if sprite_at_intent && sprite_at_intent.enemy?
-        if sprite_at_intent.fightable?
-         fight!(sprite_at_intent) 
-        else
-          @hero = Rogguer::Sprites.build_from_sprite(:dead_hero, @hero)
-        end
-      end
+      process_sprite_at_intent(sprite_at_intent)
 
-      if !@map.allowable_intent?(@hero)
-        @hero.intent = @hero.coords
-      end
+      @hero.intent = @hero.coords if !@map.allowable_intent?(@hero)
 
       if @map.allowable_intent?(@hero)
         @map.move_to_intent(@hero)
@@ -48,12 +41,17 @@ module Rogguer
       update_status_bar
     end
 
-    def fight!(sprite)
-      @fighting = true
+    def fight!(enemy)
+      @battle_master = BattleMaster.new(@hero, enemy)
     end
 
     def fighting?
-      @fighting == true
+      !@battle_master.nil?
+    end
+
+    def complete_fight
+      @hero = @battle_master.hero
+      @battle_master = nil
     end
 
     private
@@ -74,6 +72,16 @@ module Rogguer
 
     def calculate_starting_coords(map)
       [@map.structure.last.size / 2, @map.structure.size - 1]
+    end
+
+    def process_sprite_at_intent(sprite_at_intent)
+      return if sprite_at_intent.nil? || !sprite_at_intent.enemy?
+      
+      if sprite_at_intent.fightable?
+       fight!(sprite_at_intent) 
+      else
+        @hero = Rogguer::Sprites.build_from_sprite(:dead_hero, @hero)
+      end
     end
   end
 end
