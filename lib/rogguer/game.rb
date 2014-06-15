@@ -23,7 +23,9 @@ module Rogguer
           last_command = console.last_command
           game_master.hero_action(last_command)
 
-          fight_loop(game_master, console)
+          if game_master.fighting?
+            fight_loop(game_master, console)
+          end
         end
       ensure
         console.teardown
