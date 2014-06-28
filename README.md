@@ -1,1 +1,1 @@
-Just playin' around with a silly text-based Frogger game. 
+Just an abandoned project I made to play around with curses, etc. 
